@@ -614,8 +614,12 @@ var PRESETS = map[string]QueryPreset{
 		include: []string{"sarajevo", "banja+luka", "tuzla", "zenica", "bijeljina", "mostar", "prijedor", "brcko", "doboj", "cazin"},
 	},
 	"kurdistan": QueryPreset{
-	    title:   "Kurdistan",
-	    include: []string{"kurdistan", "erbil", "hawler", "sulaymaniyah", "slemani", "duhok", "halabja", "kirkuk"},
+		title:   "Kurdistan",
+		include: []string{"kurdistan", "erbil", "hawler", "sulaymaniyah", "slemani", "duhok", "halabja", "kirkuk"},
+	},
+	"costa rica": QueryPreset{
+		title:   "Costa Rica",
+		include: []string{"costa+rica", "san+josé", "alajuela", "cartago", "heredia", "guanacaste", "puntarenas", "limón"},
 	},
 }
 
