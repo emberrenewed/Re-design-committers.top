@@ -21,7 +21,7 @@ users:
     name: "EmmoDev"
     login: "kainerd"
     avatarUrl: https://avatars.githubusercontent.com/u/173632374?u=42a62cb6c59ff66707454966f6f09f16fb2f1b3f&v=4
-    contributions: 10
+    contributions: 8
     company: ""
     organizations: ""
 
@@ -218,19 +218,19 @@ users:
     organizations: ""
 
   - rank: 28
-    name: "NEXT GENERATION SOLUTIONS "
-    login: "next-gen-solutions-coder"
-    avatarUrl: https://avatars.githubusercontent.com/u/214218297?v=4
-    contributions: 0
-    company: "Next Generation Solutions"
-    organizations: ""
-
-  - rank: 29
     name: "William Ror Jr"
     login: "williams-ror"
     avatarUrl: https://avatars.githubusercontent.com/u/197769484?u=872f66f48b961df81b2102f20a896c35ebb3102f&v=4
     contributions: 0
     company: "UniPod South Sudan"
+    organizations: ""
+
+  - rank: 29
+    name: "NEXT GENERATION SOLUTIONS "
+    login: "next-gen-solutions-coder"
+    avatarUrl: https://avatars.githubusercontent.com/u/214218297?v=4
+    contributions: 0
+    company: "Next Generation Solutions"
     organizations: ""
 
   - rank: 30
@@ -262,7 +262,7 @@ users_public_contributions:
     name: "EmmoDev"
     login: "kainerd"
     avatarUrl: https://avatars.githubusercontent.com/u/173632374?u=42a62cb6c59ff66707454966f6f09f16fb2f1b3f&v=4
-    contributions: 17
+    contributions: 13
     company: ""
     organizations: ""
 
@@ -307,19 +307,19 @@ users_public_contributions:
     organizations: ""
 
   - rank: 9
-    name: "NEXT GENERATION SOLUTIONS "
-    login: "next-gen-solutions-coder"
-    avatarUrl: https://avatars.githubusercontent.com/u/214218297?v=4
-    contributions: 1
-    company: "Next Generation Solutions"
-    organizations: ""
-
-  - rank: 10
     name: "William Ror Jr"
     login: "williams-ror"
     avatarUrl: https://avatars.githubusercontent.com/u/197769484?u=872f66f48b961df81b2102f20a896c35ebb3102f&v=4
     contributions: 1
     company: "UniPod South Sudan"
+    organizations: ""
+
+  - rank: 10
+    name: "NEXT GENERATION SOLUTIONS "
+    login: "next-gen-solutions-coder"
+    avatarUrl: https://avatars.githubusercontent.com/u/214218297?v=4
+    contributions: 1
+    company: "Next Generation Solutions"
     organizations: ""
 
   - rank: 11
@@ -504,7 +504,7 @@ private_users:
     name: "EmmoDev"
     login: "kainerd"
     avatarUrl: https://avatars.githubusercontent.com/u/173632374?u=42a62cb6c59ff66707454966f6f09f16fb2f1b3f&v=4
-    contributions: 30
+    contributions: 14
     company: ""
     organizations: ""
 
@@ -549,19 +549,19 @@ private_users:
     organizations: ""
 
   - rank: 9
-    name: "NEXT GENERATION SOLUTIONS "
-    login: "next-gen-solutions-coder"
-    avatarUrl: https://avatars.githubusercontent.com/u/214218297?v=4
-    contributions: 1
-    company: "Next Generation Solutions"
-    organizations: ""
-
-  - rank: 10
     name: "William Ror Jr"
     login: "williams-ror"
     avatarUrl: https://avatars.githubusercontent.com/u/197769484?u=872f66f48b961df81b2102f20a896c35ebb3102f&v=4
     contributions: 1
     company: "UniPod South Sudan"
+    organizations: ""
+
+  - rank: 10
+    name: "NEXT GENERATION SOLUTIONS "
+    login: "next-gen-solutions-coder"
+    avatarUrl: https://avatars.githubusercontent.com/u/214218297?v=4
+    contributions: 1
+    company: "Next Generation Solutions"
     organizations: ""
 
   - rank: 11
@@ -741,7 +741,7 @@ private_organizations:
   - rank: 1
     name: "konetahub"
     membercount: 1
-generated: 2026-04-21T00:01:42Z
+generated: 2026-04-26T01:15:31Z
 min_followers_required: 0
 total_user_count: 30
 title: South Sudan
