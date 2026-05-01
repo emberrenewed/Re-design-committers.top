@@ -106,19 +106,19 @@ users:
     organizations: ""
 
   - rank: 14
-    name: "William Deng Lual Deng "
-    login: "0912222213"
-    avatarUrl: https://avatars.githubusercontent.com/u/68155181?v=4
-    contributions: 0
-    company: "Kampala university "
-    organizations: ""
-
-  - rank: 15
     name: ""
     login: "Kinqly"
     avatarUrl: https://avatars.githubusercontent.com/u/54659224?v=4
     contributions: 0
     company: "Kinqly"
+    organizations: ""
+
+  - rank: 15
+    name: "William Deng Lual Deng "
+    login: "0912222213"
+    avatarUrl: https://avatars.githubusercontent.com/u/68155181?v=4
+    contributions: 0
+    company: "Kampala university "
     organizations: ""
 
   - rank: 16
@@ -347,19 +347,19 @@ users_public_contributions:
     organizations: ""
 
   - rank: 14
-    name: "William Deng Lual Deng "
-    login: "0912222213"
-    avatarUrl: https://avatars.githubusercontent.com/u/68155181?v=4
-    contributions: 0
-    company: "Kampala university "
-    organizations: ""
-
-  - rank: 15
     name: ""
     login: "Kinqly"
     avatarUrl: https://avatars.githubusercontent.com/u/54659224?v=4
     contributions: 0
     company: "Kinqly"
+    organizations: ""
+
+  - rank: 15
+    name: "William Deng Lual Deng "
+    login: "0912222213"
+    avatarUrl: https://avatars.githubusercontent.com/u/68155181?v=4
+    contributions: 0
+    company: "Kampala university "
     organizations: ""
 
   - rank: 16
@@ -589,19 +589,19 @@ private_users:
     organizations: ""
 
   - rank: 14
-    name: "William Deng Lual Deng "
-    login: "0912222213"
-    avatarUrl: https://avatars.githubusercontent.com/u/68155181?v=4
-    contributions: 0
-    company: "Kampala university "
-    organizations: ""
-
-  - rank: 15
     name: ""
     login: "Kinqly"
     avatarUrl: https://avatars.githubusercontent.com/u/54659224?v=4
     contributions: 0
     company: "Kinqly"
+    organizations: ""
+
+  - rank: 15
+    name: "William Deng Lual Deng "
+    login: "0912222213"
+    avatarUrl: https://avatars.githubusercontent.com/u/68155181?v=4
+    contributions: 0
+    company: "Kampala university "
     organizations: ""
 
   - rank: 16
@@ -741,7 +741,7 @@ private_organizations:
   - rank: 1
     name: "konetahub"
     membercount: 1
-generated: 2026-04-26T01:15:31Z
+generated: 2026-05-01T00:04:51Z
 min_followers_required: 0
 total_user_count: 30
 title: South Sudan
