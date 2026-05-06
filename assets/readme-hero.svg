@@ -1,173 +1,176 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
-  <title id="title">committers.top animated 3D data pipeline</title>
-  <desc id="desc">An animated SVG showing GitHub data flowing through a ranking engine into website and badge outputs.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+  <title id="title">Animated committers.top dashboard preview</title>
+  <desc id="desc">A GitHub-safe animated 3D dashboard showing contributor rankings, contribution data, and export outputs.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0" stop-color="#07111f"/>
-      <stop offset="0.48" stop-color="#0d2a38"/>
-      <stop offset="1" stop-color="#111827"/>
+    <linearGradient id="page" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08111f"/>
+      <stop offset="0.36" stop-color="#101827"/>
+      <stop offset="0.68" stop-color="#123126"/>
+      <stop offset="1" stop-color="#11131f"/>
     </linearGradient>
-    <linearGradient id="panel" x1="0" x2="1">
-      <stop offset="0" stop-color="#12263d" stop-opacity="0.92"/>
-      <stop offset="1" stop-color="#0e1726" stop-opacity="0.92"/>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#172033" stop-opacity="0.98"/>
+      <stop offset="1" stop-color="#0c1220" stop-opacity="0.98"/>
     </linearGradient>
-    <linearGradient id="cyan" x1="0" x2="1">
-      <stop offset="0" stop-color="#67e8f9"/>
+    <linearGradient id="topEdge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="0.5" stop-color="#a3e635"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="barA" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/>
       <stop offset="1" stop-color="#22c55e"/>
     </linearGradient>
-    <linearGradient id="orange" x1="0" x2="1">
-      <stop offset="0" stop-color="#fbbf24"/>
-      <stop offset="1" stop-color="#f97316"/>
+    <linearGradient id="barB" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#ef4444"/>
     </linearGradient>
-    <linearGradient id="violet" x1="0" x2="1">
-      <stop offset="0" stop-color="#a78bfa"/>
-      <stop offset="1" stop-color="#38bdf8"/>
+    <linearGradient id="cubeTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e0f2fe"/>
+      <stop offset="1" stop-color="#2dd4bf"/>
     </linearGradient>
-    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
+    <linearGradient id="cubeLeft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0ea5e9"/>
+      <stop offset="1" stop-color="#155e75"/>
+    </linearGradient>
+    <linearGradient id="cubeRight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#166534"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-25%" width="145%" height="150%">
+      <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#000000" flood-opacity="0.38"/>
+    </filter>
+    <filter id="glow" x="-45%" y="-45%" width="190%" height="190%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
     <style>
-      .route {
-        stroke-dasharray: 10 14;
-        animation: flow 3.8s linear infinite;
-      }
-      .pulse {
-        animation: pulse 2.6s ease-in-out infinite;
-        transform-origin: center;
-      }
-      .float {
-        animation: float 5.2s ease-in-out infinite;
-      }
-      .scan {
-        animation: scan 4.4s ease-in-out infinite;
-      }
-      .blink {
-        animation: blink 1.6s ease-in-out infinite;
-      }
-      @keyframes flow {
-        to { stroke-dashoffset: -96; }
-      }
-      @keyframes pulse {
-        0%, 100% { opacity: .72; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.08); }
-      }
-      @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-9px); }
-      }
-      @keyframes scan {
-        0%, 100% { transform: translateX(-135px); opacity: .08; }
-        45%, 55% { opacity: .42; }
-        50% { transform: translateX(135px); }
-      }
-      @keyframes blink {
-        0%, 56%, 100% { opacity: .35; }
-        58%, 82% { opacity: 1; }
-      }
+      .dash { stroke-dasharray: 13 17; animation: dash 4.2s linear infinite; }
+      .float { animation: float 5.8s ease-in-out infinite; }
+      .float2 { animation: float 6.8s ease-in-out infinite reverse; }
+      .pulse { animation: pulse 2.8s ease-in-out infinite; transform-origin: center; }
+      .rise1 { animation: rise1 3.6s ease-in-out infinite; transform-origin: bottom; }
+      .rise2 { animation: rise2 4.1s ease-in-out infinite; transform-origin: bottom; }
+      .rise3 { animation: rise3 3.8s ease-in-out infinite; transform-origin: bottom; }
+      .scan { animation: scan 4.8s ease-in-out infinite; }
+      .tick { animation: tick 2.2s steps(1) infinite; }
+      @keyframes dash { to { stroke-dashoffset: -120; } }
+      @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+      @keyframes pulse { 0%,100% { opacity: .62; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+      @keyframes rise1 { 0%,100% { transform: scaleY(.74); } 50% { transform: scaleY(1); } }
+      @keyframes rise2 { 0%,100% { transform: scaleY(.92); } 50% { transform: scaleY(.62); } }
+      @keyframes rise3 { 0%,100% { transform: scaleY(.58); } 50% { transform: scaleY(.96); } }
+      @keyframes scan { 0%,100% { transform: translateX(-120px); opacity: 0; } 40%,60% { opacity: .34; } 50% { transform: translateX(120px); } }
+      @keyframes tick { 0% { opacity: .15; } 50% { opacity: 1; } }
       @media (prefers-reduced-motion: reduce) {
-        .route, .pulse, .float, .scan, .blink { animation: none; }
+        .dash,.float,.float2,.pulse,.rise1,.rise2,.rise3,.scan,.tick { animation: none; }
       }
     </style>
   </defs>
 
-  <rect width="1200" height="420" rx="34" fill="url(#bg)"/>
-  <path d="M0 332 C170 295 280 374 430 335 C603 291 689 250 842 300 C995 351 1089 289 1200 261 L1200 420 L0 420 Z" fill="#0f766e" opacity=".16"/>
+  <rect width="1280" height="520" rx="36" fill="url(#page)"/>
+  <path d="M0 396 C146 340 260 445 424 378 C570 319 682 316 825 373 C996 441 1098 340 1280 372 L1280 520 L0 520 Z" fill="#0f766e" opacity=".16"/>
+  <path d="M66 430 L310 186 L1110 186 L910 430 Z" fill="none" stroke="#94a3b8" stroke-opacity=".18"/>
+  <path d="M130 430 L362 186 M198 430 L416 186 M266 430 L470 186 M334 430 L524 186 M402 430 L578 186 M470 430 L632 186 M538 430 L686 186 M606 430 L740 186 M674 430 L794 186 M742 430 L848 186 M810 430 L902 186 M878 430 L956 186" stroke="#94a3b8" stroke-opacity=".12"/>
+  <path d="M118 382 L958 382 M168 334 L1002 334 M218 286 L1044 286 M267 238 L1084 238" stroke="#94a3b8" stroke-opacity=".12"/>
 
-  <g opacity=".22" stroke="#94a3b8" stroke-width="1">
-    <path d="M70 360 L330 118 L1076 118 L900 360 Z" fill="none"/>
-    <path d="M126 360 L375 118"/>
-    <path d="M184 360 L420 118"/>
-    <path d="M242 360 L465 118"/>
-    <path d="M300 360 L510 118"/>
-    <path d="M358 360 L555 118"/>
-    <path d="M416 360 L600 118"/>
-    <path d="M474 360 L645 118"/>
-    <path d="M532 360 L690 118"/>
-    <path d="M590 360 L735 118"/>
-    <path d="M648 360 L780 118"/>
-    <path d="M706 360 L825 118"/>
-    <path d="M764 360 L870 118"/>
-    <path d="M822 360 L915 118"/>
-    <path d="M880 360 L960 118"/>
-    <path d="M938 360 L1005 118"/>
-    <path d="M118 315 L954 315"/>
-    <path d="M170 270 L993 270"/>
-    <path d="M221 225 L1028 225"/>
-    <path d="M275 178 L1061 178"/>
-    <path d="M330 118 L1076 118"/>
-  </g>
+  <g transform="translate(70 66)" filter="url(#shadow)">
+    <rect width="476" height="326" rx="28" fill="url(#card)" stroke="#ffffff" stroke-opacity=".08"/>
+    <rect x="0" y="0" width="476" height="5" rx="3" fill="url(#topEdge)"/>
+    <rect x="28" y="28" width="420" height="44" rx="15" fill="#060b14" opacity=".9"/>
+    <circle cx="54" cy="50" r="6" fill="#ef4444"/>
+    <circle cx="76" cy="50" r="6" fill="#f59e0b"/>
+    <circle cx="98" cy="50" r="6" fill="#22c55e"/>
+    <text x="28" y="122" fill="#f8fafc" font-family="Segoe UI, Arial, sans-serif" font-size="44" font-weight="800">committers.top</text>
+    <text x="30" y="156" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="18">GitHub contributor intelligence by region.</text>
 
-  <g transform="translate(62 52)">
-    <rect width="416" height="268" rx="22" fill="url(#panel)" stroke="#2dd4bf" stroke-opacity=".28"/>
-    <rect x="22" y="22" width="372" height="38" rx="12" fill="#020617" opacity=".78"/>
-    <circle cx="44" cy="41" r="5" fill="#f87171"/>
-    <circle cx="62" cy="41" r="5" fill="#facc15"/>
-    <circle cx="80" cy="41" r="5" fill="#4ade80"/>
-    <text x="22" y="97" fill="#f8fafc" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="700">committers.top</text>
-    <text x="24" y="132" fill="#bae6fd" font-family="Segoe UI, Arial, sans-serif" font-size="17">Rank GitHub activity by region, organization, and public impact.</text>
-
-    <g transform="translate(24 166)" font-family="Consolas, 'Courier New', monospace" font-size="16">
-      <text y="0" fill="#38bdf8">$ go run . --preset worldwide</text>
-      <text y="31" fill="#a7f3d0">query GitHub GraphQL</text>
-      <text y="62" fill="#fde68a">sort contributors and organizations</text>
-      <text y="93" fill="#ddd6fe">export plain, csv, or yaml</text>
-      <rect class="scan" x="170" y="-22" width="78" height="122" fill="#67e8f9" opacity=".12"/>
-      <rect class="blink" x="348" y="-14" width="10" height="20" fill="#67e8f9"/>
+    <g transform="translate(30 196)" font-family="Consolas, 'Courier New', monospace">
+      <rect width="416" height="92" rx="18" fill="#020617" opacity=".86" stroke="#1f2937"/>
+      <text x="22" y="31" fill="#38bdf8" font-size="16">$ go run . --preset worldwide</text>
+      <text x="22" y="61" fill="#a7f3d0" font-size="16">rank -> export -> publish</text>
+      <rect class="tick" x="292" y="47" width="9" height="18" fill="#a7f3d0"/>
+      <rect class="scan" x="170" y="8" width="64" height="76" rx="12" fill="#38bdf8"/>
     </g>
   </g>
 
-  <g fill="none" stroke-width="4" stroke-linecap="round" opacity=".88">
-    <path class="route" d="M500 188 C555 132 613 132 672 188" stroke="url(#cyan)"/>
-    <path class="route" d="M500 234 C566 293 620 296 688 244" stroke="url(#orange)"/>
-    <path class="route" d="M725 206 C805 150 889 150 974 204" stroke="url(#violet)"/>
+  <g transform="translate(604 72)" filter="url(#shadow)">
+    <rect width="584" height="356" rx="30" fill="url(#card)" stroke="#ffffff" stroke-opacity=".09"/>
+    <rect x="30" y="30" width="252" height="296" rx="22" fill="#050b15" opacity=".78" stroke="#1f2937"/>
+    <text x="54" y="68" fill="#f8fafc" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">Top contributors</text>
+    <text x="54" y="94" fill="#94a3b8" font-family="Segoe UI, Arial, sans-serif" font-size="13">public commits and activity</text>
+
+    <g font-family="Segoe UI, Arial, sans-serif" font-size="14">
+      <g transform="translate(54 126)">
+        <circle r="18" cx="18" cy="18" fill="#38bdf8"/>
+        <text x="52" y="15" fill="#e2e8f0" font-weight="700">developer-one</text>
+        <text x="52" y="36" fill="#94a3b8">42,810 contributions</text>
+        <rect x="52" y="48" width="146" height="8" rx="4" fill="#1e293b"/>
+        <rect class="pulse" x="52" y="48" width="132" height="8" rx="4" fill="url(#barA)"/>
+      </g>
+      <g transform="translate(54 198)">
+        <circle r="18" cx="18" cy="18" fill="#a3e635"/>
+        <text x="52" y="15" fill="#e2e8f0" font-weight="700">maintainer</text>
+        <text x="52" y="36" fill="#94a3b8">37,460 contributions</text>
+        <rect x="52" y="48" width="146" height="8" rx="4" fill="#1e293b"/>
+        <rect class="pulse" style="animation-delay:.4s" x="52" y="48" width="112" height="8" rx="4" fill="url(#barA)"/>
+      </g>
+      <g transform="translate(54 270)">
+        <circle r="18" cx="18" cy="18" fill="#f59e0b"/>
+        <text x="52" y="15" fill="#e2e8f0" font-weight="700">core-builder</text>
+        <text x="52" y="36" fill="#94a3b8">31,220 contributions</text>
+        <rect x="52" y="48" width="146" height="8" rx="4" fill="#1e293b"/>
+        <rect class="pulse" style="animation-delay:.8s" x="52" y="48" width="94" height="8" rx="4" fill="url(#barB)"/>
+      </g>
+    </g>
+
+    <g transform="translate(326 34)">
+      <text x="0" y="34" fill="#f8fafc" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">Export pipeline</text>
+      <text x="0" y="60" fill="#94a3b8" font-family="Segoe UI, Arial, sans-serif" font-size="13">GraphQL to YAML, CSV, badges</text>
+      <g transform="translate(6 96)">
+        <path class="dash" d="M0 34 C60 -10 132 -10 196 34" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
+        <path class="dash" d="M0 112 C62 160 134 160 202 112" fill="none" stroke="#a3e635" stroke-width="4" stroke-linecap="round"/>
+        <circle class="pulse" cx="0" cy="34" r="12" fill="#38bdf8" filter="url(#glow)"/>
+        <circle class="pulse" style="animation-delay:.35s" cx="100" cy="16" r="12" fill="#a3e635" filter="url(#glow)"/>
+        <circle class="pulse" style="animation-delay:.7s" cx="202" cy="112" r="12" fill="#f59e0b" filter="url(#glow)"/>
+      </g>
+
+      <g transform="translate(18 246)">
+        <rect class="rise1" x="0" y="-78" width="28" height="78" rx="8" fill="#38bdf8"/>
+        <rect class="rise2" x="46" y="-104" width="28" height="104" rx="8" fill="#a3e635"/>
+        <rect class="rise3" x="92" y="-64" width="28" height="64" rx="8" fill="#f59e0b"/>
+        <rect class="rise1" x="138" y="-92" width="28" height="92" rx="8" fill="#c084fc"/>
+        <path d="M-8 0 H184" stroke="#334155" stroke-width="2"/>
+      </g>
+    </g>
   </g>
 
-  <g font-family="Segoe UI, Arial, sans-serif" text-anchor="middle">
-    <g class="pulse" filter="url(#softGlow)">
-      <circle cx="548" cy="206" r="34" fill="#0891b2"/>
-      <text x="548" y="212" fill="#ecfeff" font-size="15" font-weight="700">API</text>
-    </g>
-    <g class="pulse" style="animation-delay:.45s" filter="url(#softGlow)">
-      <circle cx="682" cy="206" r="42" fill="#16a34a"/>
-      <text x="682" y="205" fill="#f0fdf4" font-size="14" font-weight="700">RANK</text>
-      <text x="682" y="224" fill="#dcfce7" font-size="12">ENGINE</text>
-    </g>
-    <g class="pulse" style="animation-delay:.9s" filter="url(#softGlow)">
-      <circle cx="965" cy="206" r="36" fill="#7c3aed"/>
-      <text x="965" y="212" fill="#faf5ff" font-size="15" font-weight="700">SITE</text>
-    </g>
-  </g>
-
-  <g class="float" transform="translate(770 60)">
+  <g class="float2" transform="translate(522 128)">
     <g>
-      <animateTransform attributeName="transform" type="rotate" from="-4 185 138" to="356 185 138" dur="18s" repeatCount="indefinite"/>
-      <polygon points="184,16 314,80 184,147 54,80" fill="url(#cyan)" opacity=".86"/>
-      <polygon points="54,80 184,147 184,286 54,217" fill="#075985" opacity=".86"/>
-      <polygon points="314,80 184,147 184,286 314,217" fill="#0f766e" opacity=".86"/>
-      <polygon points="184,60 264,98 184,139 104,98" fill="#ecfeff" opacity=".22"/>
-      <line x1="184" y1="16" x2="184" y2="286" stroke="#cffafe" stroke-opacity=".36"/>
-      <line x1="54" y1="80" x2="314" y2="217" stroke="#cffafe" stroke-opacity=".3"/>
-      <line x1="314" y1="80" x2="54" y2="217" stroke="#cffafe" stroke-opacity=".3"/>
-      <circle cx="184" cy="16" r="6" fill="#fbbf24" filter="url(#softGlow)"/>
-      <circle cx="314" cy="80" r="6" fill="#67e8f9" filter="url(#softGlow)"/>
-      <circle cx="184" cy="286" r="6" fill="#a7f3d0" filter="url(#softGlow)"/>
-      <circle cx="54" cy="217" r="6" fill="#f0abfc" filter="url(#softGlow)"/>
+      <animateTransform attributeName="transform" type="rotate" from="-6 86 96" to="354 86 96" dur="20s" repeatCount="indefinite"/>
+      <polygon points="86,8 164,48 86,89 8,48" fill="url(#cubeTop)" opacity=".94"/>
+      <polygon points="8,48 86,89 86,184 8,142" fill="url(#cubeLeft)" opacity=".9"/>
+      <polygon points="164,48 86,89 86,184 164,142" fill="url(#cubeRight)" opacity=".9"/>
+      <path d="M86 8 V184 M8 48 L164 142 M164 48 L8 142" stroke="#ecfeff" stroke-opacity=".32"/>
+      <circle cx="86" cy="8" r="6" fill="#fef3c7" filter="url(#glow)"/>
+      <circle cx="164" cy="48" r="6" fill="#bbf7d0" filter="url(#glow)"/>
+      <circle cx="86" cy="184" r="6" fill="#bae6fd" filter="url(#glow)"/>
+      <circle cx="8" cy="142" r="6" fill="#fde68a" filter="url(#glow)"/>
     </g>
   </g>
 
-  <g transform="translate(770 334)" font-family="Segoe UI, Arial, sans-serif">
-    <rect width="356" height="42" rx="14" fill="#020617" opacity=".72" stroke="#38bdf8" stroke-opacity=".28"/>
-    <text x="24" y="27" fill="#e0f2fe" font-size="15">GraphQL -> Go CLI -> YAML -> GitHub Pages -> Shields</text>
-  </g>
-
-  <g opacity=".72">
-    <circle class="pulse" cx="1128" cy="66" r="4" fill="#fbbf24"/>
-    <circle class="pulse" style="animation-delay:.3s" cx="1068" cy="88" r="3" fill="#67e8f9"/>
-    <circle class="pulse" style="animation-delay:.6s" cx="1160" cy="128" r="5" fill="#a7f3d0"/>
-    <circle class="pulse" style="animation-delay:.9s" cx="1028" cy="52" r="3" fill="#ddd6fe"/>
+  <g transform="translate(92 438)" font-family="Segoe UI, Arial, sans-serif" font-size="15">
+    <rect width="1096" height="46" rx="18" fill="#020617" opacity=".74" stroke="#ffffff" stroke-opacity=".08"/>
+    <text x="28" y="29" fill="#cbd5e1">GitHub GraphQL</text>
+    <text x="218" y="29" fill="#94a3b8">Go ranking engine</text>
+    <text x="444" y="29" fill="#cbd5e1">YAML / CSV exports</text>
+    <text x="690" y="29" fill="#94a3b8">GitHub Pages data</text>
+    <text x="928" y="29" fill="#cbd5e1">Badge workers</text>
+    <circle cx="188" cy="24" r="4" fill="#38bdf8"/>
+    <circle cx="414" cy="24" r="4" fill="#a3e635"/>
+    <circle cx="660" cy="24" r="4" fill="#f59e0b"/>
+    <circle cx="898" cy="24" r="4" fill="#c084fc"/>
   </g>
 </svg>
