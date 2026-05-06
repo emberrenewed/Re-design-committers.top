@@ -1,28 +1,48 @@
-## Most active GitHub users
+---
+layout: default
+---
 
-This is a list of most active GitHub users in different countries/regions.
-<ul class="country-list">
-{% assign locations = site.data.locations | sort %}
-{% for loc_hash in locations %}
-  {% assign location = loc_hash[1] %}
-  <li><a href="{{location.page | remove: '.html'}}">{{location.title}}</a></li>
-{% endfor %}
-</ul>
+<section class="directory" id="locations">
+  <div class="directory-header">
+    <div>
+      <p class="eyebrow">Regions</p>
+      <h2>Find the most active developers anywhere.</h2>
+    </div>
+    <div>
+      <p>
+        Each region is generated from GitHub activity data and includes commits, public contributions,
+        private-inclusive totals, organizations, and badge routes.
+      </p>
+      <div class="directory-stats" aria-label="Region statistics">
+        <span><strong>{{ site.data.locations | size }}</strong> regions</span>
+        <span><strong data-count="{{ site.data.locations.worldwide.total_user_count }}">{{ site.data.locations.worldwide.total_user_count }}</strong> users worldwide</span>
+      </div>
+      <label class="region-search" for="region-search">
+        <span>Search country</span>
+        <input id="region-search" type="search" placeholder="Type a country or region..." autocomplete="off">
+      </label>
+      <p class="region-search-status" aria-live="polite" data-region-search-status></p>
+    </div>
+  </div>
 
-You can get a combined machine-readable JSON for:
-<ul>
-<li><a href="rank_only.json">rank-only with categories</a></li>
-</ul>
-A subset specific to each country/region is available on the individual page linked above.
+  <ul class="country-list">
+    {% assign locations = site.data.locations | sort %}
+    {% for loc_hash in locations %}
+      {% assign region_key = loc_hash[0] %}
+      {% assign location = loc_hash[1] %}
+      <li>
+        <a class="region-card" href="{{ location.page | remove: '.html' }}" data-region-card data-region-title="{{ location.title | downcase }}">
+          <span class="region-flag" data-region-key="{{ region_key }}" data-region-title="{{ location.title }}">&#127988;</span>
+          <span class="region-copy">
+            <span class="region-title">{{ location.title }}</span>
+            <span class="region-count"><strong data-count="{{ location.total_user_count }}">{{ location.total_user_count }}</strong> users tracked</span>
+          </span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
 
-### Badges
-
-Badges are also available, which you can include on your profile pages. Simply include the following markdown for users:
-```markdown
-[![committers.top badge](https://user-badge.committers.top/REGION/USERNAME.svg)](https://user-badge.committers.top/REGION/USERNAME)
-```
-For organizations, you need to use a slightly different markup:
-```markdown
-[![committers.top badge](https://org-badge.committers.top/REGION/ORGNAME.svg)](https://org-badge.committers.top/REGION/ORGNAME)
-```
-In case you aren't currently ranked for a given region, you'll simply receive an "unranked" badge.
+  <p class="machine-link">
+    Combined machine-readable rankings are available at <a href="rank_only.json">rank_only.json</a>.
+  </p>
+</section>

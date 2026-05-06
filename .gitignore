@@ -1,0 +1,5 @@
+__pycache__/
+.playwright-cli/
+local_preview.py
+preview.err
+preview.log

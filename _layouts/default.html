@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision }}">
-    <meta name="viewport" content="width=device-width">
 
     {% if page.sublocation %}
       {% assign location = site.data.locations[page.location][page.sublocation] %}
@@ -15,195 +15,437 @@
     {% endif %}
 
     {% if location %}
-      <title>Most active GitHub users in {{location.title}}</title>
-      <meta name="description" content="A list of most active GitHub users in {{location.title}}."/>
-      <meta property="og:description" content="A list of most active GitHub users in {{location.title}}."/>
-      <meta name="twitter:description" content="A list of most active GitHub users in {{location.title}}."/>
-
-      <meta property="og:site_name" content="committers.top - Most active GitHub users in {{location.title}}"/>
-      <meta property="og:title" content="committers.top - Most active GitHub users in {{location.title}}"/>
-      <meta name="twitter:title" content="committers.top - Most active GitHub users in {{location.title}}"/>
-      <meta property="og:url" content="https://committers.top/{{location.page}}"/>
-      <link rel="canonical" href="https://committers.top/{{location.page}}">
-
+      <title>Most active GitHub users in {{ location.title }}</title>
+      <meta name="description" content="A list of most active GitHub users in {{ location.title }}.">
+      <meta property="og:description" content="A list of most active GitHub users in {{ location.title }}.">
+      <meta name="twitter:description" content="A list of most active GitHub users in {{ location.title }}.">
+      <meta property="og:site_name" content="committers.top - Most active GitHub users in {{ location.title }}">
+      <meta property="og:title" content="committers.top - Most active GitHub users in {{ location.title }}">
+      <meta name="twitter:title" content="committers.top - Most active GitHub users in {{ location.title }}">
+      <meta property="og:url" content="https://committers.top/{{ location.page }}">
+      <link rel="canonical" href="https://committers.top/{{ location.page }}">
     {% else %}
+      {% assign global_location = site.data.locations.worldwide %}
       <title>Most active GitHub users</title>
-      <meta name="description" content="A list of most active GitHub users in different cities/countries."/>
-      <meta property="og:description" content="A list of most active GitHub users in different cities/countries."/>
-      <meta name="twitter:description" content="A list of most active GitHub users in different cities/countries."/>
-
-      <meta property="og:site_name" content="committers.top - Most active GitHub users"/>
-      <meta property="og:title" content="committers.top - Most active GitHub users"/>
-      <meta name="twitter:title" content="committers.top - Most active GitHub users"/>
-      <meta property="og:url" content="https://committers.top/"/>
+      <meta name="description" content="A list of most active GitHub users in different cities/countries.">
+      <meta property="og:description" content="A list of most active GitHub users in different cities/countries.">
+      <meta name="twitter:description" content="A list of most active GitHub users in different cities/countries.">
+      <meta property="og:site_name" content="committers.top - Most active GitHub users">
+      <meta property="og:title" content="committers.top - Most active GitHub users">
+      <meta name="twitter:title" content="committers.top - Most active GitHub users">
+      <meta property="og:url" content="https://committers.top/">
       <link rel="canonical" href="https://committers.top/">
-
     {% endif %}
-    <meta name="rating" content="Safe For Kids"/>
-    <meta name="author" content="Lauri Piispanen"/>
-    <meta name="robots" content="index,follow"/>
-    <meta name="robots" content="noodp"/>
-    <meta property="og:type" content="website"/>
 
-    <meta name="twitter:card" content="summary"/>
+    <meta name="rating" content="Safe For Kids">
+    <meta name="author" content="Lauri Piispanen">
+    <meta name="robots" content="index,follow">
+    <meta name="robots" content="noodp">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
   </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1><a href=".">committers.top</a></h1>
-        <p>A list of the most active GitHub users</p>
-
-        <p class="view"><a href="https://github.com/ashkulz/committers.top.git"><img src="https://img.shields.io/github/stars/ashkulz/committers.top?style=social" /></a></p>
-      </header>
-      <section>
-
+  <body class="{% if location %}location-page{% else %}home-page{% endif %}">
+    <header class="site-header">
+      <a class="brand" href="/">
+        <span class="brand-mark">ct</span>
+        <span class="brand-text">committers.top</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">Regions</a>
+        <a href="https://github.com/ashkulz/committers.top">Source</a>
         {% if location %}
-          <h1>Most active GitHub users in {{location.title}}</h1>
-          <p>
-            This is a list of most active GitHub users in {{location.title}} over the past year. Other countries/regions can be found <a href=".">here</a>.
-            This list was generated at <code>{{location.generated}}</code> and machine-readable JSON is available for:
-            <ul>
-              <li><a href="rank_only/{{page.location}}.json">rank-only with categories</a></li>
-            </ul>
-          </p>
-          <p>
-            This list is generated with <a href="https://github.com/ashkulz/committers.top">this</a> piece of code.
-            The logic is as follows (in pseudocode):
-          </p>
-          <p><pre><code>githubUsers.sort(_.followers){% if page.location != 'worldwide' %}
-           .filter(_.location == '{{location.title}}') {% endif %}
-           .take(1000)
-           .sort(_.contributions)
-           .take(256)</code></pre>
-          </p>
-          <p>
-          {% if page.mode == "commits" %}{% assign page_name = page.location %}
-            This list contains all public commits for each user.
-          {% elsif page.mode == "contributions" %}{% assign page_name = page.location | append: "_public" %}
-            This list contains all public contributions for each user.
-          {% else %}{% assign page_name = page.location | append: "_private" %}
-            This list contains all contributions for each user (public & private).
-          {% endif %}
-          There are <b>{{location.total_user_count}}</b> total users in the region and you need at least <b>{{location.min_followers_required}}</b> followers to be on this list.
-          </p>
-          <p>
-            Badges are also available, which you can include on your profile pages. Simply include the following markdown for users:
-            <pre><code>[![committers.top badge](https://user-badge.committers.top/{{page_name}}/USERNAME.svg)](https://user-badge.committers.top/{{page_name}}/USERNAME)</code></pre>
-            For organizations, you need to use a slightly different markup:
-            <pre><code>[![committers.top badge](https://org-badge.committers.top/{{page_name}}/ORGNAME.svg)](https://org-badge.committers.top/{{page_name}}/ORGNAME)</code></pre>
-            In case you aren't currently ranked on this page, you'll simply receive an "unranked" badge.
-          </p>
-          <p>
-            <ul class="mode-selector">
-              <li {% if page.mode == "commits" %} class="active"{% endif %}><a href="{{page.location}}">Commits</a></li>
-              <li {% if page.mode == "contributions" %} class="active"{% endif %}><a href="{{page.location}}_public">Contributions</a></li>
-              <li {% if page.mode == "all" %} class="active"{% endif %}><a href="{{page.location}}_private">All</a></li>
-            </ul>
-          </p>
-          <table class="users-list">
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>User</th>
-                <th>Contribs</th>
-                <th>Picture</th>
-              </tr>
-            </thead>
-            <tbody>
-
-          {% if page.mode == "commits" %}
-            {% assign users = location.users %}
-          {% elsif page.mode == "all" %}
-            {% assign users = location.private_users %}
-          {% else %}
-            {% assign users = location.users_public_contributions %}
-          {% endif %}
-
-          {% for user in users %}
-            <tr id="{{user.login}}">
-              <td>{{user.rank}}.</td>
-              <td><a href="https://github.com/{{user.login}}">{{user.login}}</a><br>({{user.name}})</td>
-              <td>{{user.contributions}}</td>
-              <td class="photo"><img data-src="{{user.avatarUrl}}&s=40" width="40" height="40" class="lazyload" alt="Avatar for {{user.login}}" /></td>
-            </tr>
-          {% endfor %}
-          </tbody>
-          </table>
-        </p>
-        <h3 id="organizations">Organizations</h3>
-        <p>
-        <table class="organizations-list">
-          <tr>
-            <th>Rank</th>
-            <th>Organization</th>
-            <th>Members</th>
-          </tr>
-
-        {% if page.mode == "commits" %}
-          {% assign organizations = location.organizations %}
-        {% elsif page.mode == "all" %}
-          {% assign organizations = location.private_organizations %}
+          <a href="rank_only/{{ page.location }}.json">JSON</a>
         {% else %}
-          {% assign organizations = location.public_contributions_organizations %}
+          <a href="rank_only.json">JSON</a>
         {% endif %}
-        {% for org in organizations %}
-          <tr id="{{org.name}}">
-            <td>{{org.rank}}.</td>
-            <td><a href="https://github.com/{{org.name}}">{{org.name}}</a></td>
-            <td>{{org.membercount}}</td>
-          </tr>
-        {% endfor %}
-        </table>
+      </nav>
+    </header>
+
+    {% if location %}
+      {% if page.mode == "commits" %}
+        {% assign page_name = page.location %}
+        {% assign users = location.users %}
+        {% assign organizations = location.organizations %}
+        {% assign mode_label = "Commits" %}
+        {% assign mode_description = "Public commits over the past year." %}
+      {% elsif page.mode == "contributions" %}
+        {% assign page_name = page.location | append: "_public" %}
+        {% assign users = location.users_public_contributions %}
+        {% assign organizations = location.public_contributions_organizations %}
+        {% assign mode_label = "Contributions" %}
+        {% assign mode_description = "Public contributions over the past year." %}
+      {% else %}
+        {% assign page_name = page.location | append: "_private" %}
+        {% assign users = location.private_users %}
+        {% assign organizations = location.private_organizations %}
+        {% assign mode_label = "All" %}
+        {% assign mode_description = "Public and private contributions over the past year." %}
+      {% endif %}
+
+      <main>
+        <section class="ranking-hero">
+          <div class="hero-copy">
+            <p class="eyebrow">{{ mode_label }} leaderboard</p>
+            <h1>Most active GitHub users in {{ location.title }}</h1>
+            <p class="hero-summary">
+              {{ mode_description }} Generated <time datetime="{{ location.generated }}">{{ location.generated }}</time>.
+            </p>
+            <div class="hero-metrics" aria-label="Ranking statistics">
+              <span><strong>{{ location.total_user_count }}</strong> users tracked</span>
+              <span><strong>{{ location.min_followers_required }}</strong> followers to qualify</span>
+            </div>
+          </div>
+
+          <div class="podium" aria-label="Top three ranked users">
+            {% for user in users limit:3 %}
+              <article class="podium-card podium-card-{{ user.rank }}" id="top-{{ user.login }}">
+                <a class="podium-avatar" href="https://github.com/{{ user.login }}">
+                  <img src="{{ user.avatarUrl }}&s=220" width="220" height="220" alt="Avatar for {{ user.login }}">
+                </a>
+                <div class="podium-details">
+                  <span class="podium-rank">#{{ user.rank }}</span>
+                  <h2><a href="https://github.com/{{ user.login }}">{{ user.login }}</a></h2>
+                  <p>{{ user.name }}</p>
+                  <strong>{{ user.contributions }} contributions</strong>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        </section>
+
+        <nav class="mode-bar" aria-label="Ranking mode">
+          <a {% if page.mode == "commits" %}class="active"{% endif %} href="{{ page.location }}">Commits</a>
+          <a {% if page.mode == "contributions" %}class="active"{% endif %} href="{{ page.location }}_public">Contributions</a>
+          <a {% if page.mode == "all" %}class="active"{% endif %} href="{{ page.location }}_private">All</a>
+        </nav>
+
+        <section class="content-band">
+          <div class="section-heading">
+            <p class="eyebrow">Full ranking</p>
+            <h2>{{ mode_label }} leaders</h2>
+            <p>
+              Data comes from the GitHub GraphQL API, sorted by followers first, then ranked by contribution activity.
+              <a href="/">Browse other regions</a>.
+            </p>
+          </div>
+
+          <div class="ranking-table-wrap">
+            <table class="ranking-table users-list">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>User</th>
+                  <th>Contribs</th>
+                  <th>Picture</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in users offset:3 %}
+                  <tr id="{{ user.login }}">
+                    <td><span class="rank-pill">#{{ user.rank }}</span></td>
+                    <td>
+                      <a class="user-login" href="https://github.com/{{ user.login }}">{{ user.login }}</a>
+                      <span class="user-name">{{ user.name }}</span>
+                    </td>
+                    <td class="contribs">{{ user.contributions }}</td>
+                    <td class="photo">
+                      <img data-src="{{ user.avatarUrl }}&s=56" width="56" height="56" class="lazyload" alt="Avatar for {{ user.login }}">
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="content-band detail-grid">
+          <div class="section-heading">
+            <p class="eyebrow">Organizations</p>
+            <h2>Teams behind the list</h2>
+            <p>Organizations are inferred from public organization membership and company profile handles.</p>
+          </div>
+
+          <div class="org-panel">
+            <table class="organizations-list">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Organization</th>
+                  <th>Members</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for org in organizations %}
+                  <tr id="{{ org.name }}">
+                    <td><span class="rank-pill">#{{ org.rank }}</span></td>
+                    <td><a href="https://github.com/{{ org.name }}">{{ org.name }}</a></td>
+                    <td>{{ org.membercount }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <aside class="badge-panel">
+            <p class="eyebrow">Badges</p>
+            <h2>Profile badge route</h2>
+            <pre><code>[![committers.top badge](https://user-badge.committers.top/{{ page_name }}/USERNAME.svg)](https://user-badge.committers.top/{{ page_name }}/USERNAME)</code></pre>
+            <pre><code>[![committers.top badge](https://org-badge.committers.top/{{ page_name }}/ORGNAME.svg)](https://org-badge.committers.top/{{ page_name }}/ORGNAME)</code></pre>
+          </aside>
+        </section>
+
+        {{ content }}
+      </main>
+    {% else %}
+      <main>
+        <section class="home-hero">
+          <div class="home-copy">
+            <p class="eyebrow">Global open-source activity</p>
+            <h1>committers.<wbr>top</h1>
+            <p>
+              A live directory of the most active GitHub users across countries and regions.
+            </p>
+            <a class="primary-link" href="#locations">Browse regions</a>
+          </div>
+
+          <div class="home-leaders" aria-label="Worldwide top ranked users">
+            {% for user in global_location.users limit:3 %}
+              <article class="podium-card podium-card-{{ user.rank }}">
+                <a class="podium-avatar" href="https://github.com/{{ user.login }}">
+                  <img src="{{ user.avatarUrl }}&s=220" width="220" height="220" alt="Avatar for {{ user.login }}">
+                </a>
+                <div class="podium-details">
+                  <span class="podium-rank">#{{ user.rank }}</span>
+                  <h2><a href="https://github.com/{{ user.login }}">{{ user.login }}</a></h2>
+                  <p>{{ user.name }}</p>
+                  <strong>{{ user.contributions }} contributions</strong>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        </section>
+
+        {{ content }}
+      </main>
+    {% endif %}
+
+    <footer class="site-footer">
+      <p>
+        Maintained by <a href="https://github.com/ashkulz">ashkulz</a>.
+        Originally created by <a href="https://github.com/lauripiispanen/most-active-github-users-counter">lauripiispanen</a>.
       </p>
-
-
-        {% endif %}
-
-      {{ content }}
-
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a> and was originally created by <a href="https://github.com/lauripiispanen/most-active-github-users-counter">lauripiispanen</a>.</p>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> with the <a href="https://github.com/pages-themes/minimal">minimal theme</a>.</small></p>
-      </footer>
-    </div>
-    <script src="{{ '/assets/js/scale.fix.js' }}"></script>
+      <p><a href="https://pages.github.com">GitHub Pages</a> · <a href="https://github.com/ashkulz/committers.top">Source code</a></p>
+    </footer>
 
     <script>
       document.addEventListener("DOMContentLoaded", function() {
+        var regionCodes = {
+          afghanistan: "AF",
+          albania: "AL",
+          algeria: "DZ",
+          angola: "AO",
+          argentina: "AR",
+          armenia: "AM",
+          australia: "AU",
+          austria: "AT",
+          azerbaijan: "AZ",
+          bahrain: "BH",
+          bangladesh: "BD",
+          belarus: "BY",
+          belgium: "BE",
+          benin: "BJ",
+          bolivia: "BO",
+          bosnia_and_herzegovina: "BA",
+          botswana: "BW",
+          brazil: "BR",
+          bulgaria: "BG",
+          burkina_faso: "BF",
+          burundi: "BI",
+          cambodia: "KH",
+          cameroon: "CM",
+          canada: "CA",
+          chad: "TD",
+          chile: "CL",
+          china: "CN",
+          colombia: "CO",
+          congo_brazzaville: "CG",
+          congo_kinshasa: "CD",
+          costa_rica: "CR",
+          croatia: "HR",
+          cuba: "CU",
+          cyprus: "CY",
+          czech_republic: "CZ",
+          denmark: "DK",
+          dominican_republic: "DO",
+          ecuador: "EC",
+          egypt: "EG",
+          el_salvador: "SV",
+          estonia: "EE",
+          ethiopia: "ET",
+          finland: "FI",
+          france: "FR",
+          gabon: "GA",
+          georgia: "GE",
+          germany: "DE",
+          ghana: "GH",
+          greece: "GR",
+          guatemala: "GT",
+          guinea: "GN",
+          haiti: "HT",
+          honduras: "HN",
+          hong_kong: "HK",
+          hungary: "HU",
+          india: "IN",
+          indonesia: "ID",
+          iran: "IR",
+          iraq: "IQ",
+          ireland: "IE",
+          israel: "IL",
+          italy: "IT",
+          ivory_coast: "CI",
+          japan: "JP",
+          jordan: "JO",
+          kazakhstan: "KZ",
+          kenya: "KE",
+          kosovo: "XK",
+          kurdistan: "KURDISTAN",
+          kyrgyzstan: "KG",
+          laos: "LA",
+          latvia: "LV",
+          lebanon: "LB",
+          libya: "LY",
+          lithuania: "LT",
+          luxembourg: "LU",
+          macau: "MO",
+          macedonia: "MK",
+          madagascar: "MG",
+          malawi: "MW",
+          malaysia: "MY",
+          mali: "ML",
+          malta: "MT",
+          mauritania: "MR",
+          mauritius: "MU",
+          mexico: "MX",
+          moldova: "MD",
+          morocco: "MA",
+          mozambique: "MZ",
+          myanmar: "MM",
+          nepal: "NP",
+          netherlands: "NL",
+          new_zealand: "NZ",
+          nicaragua: "NI",
+          niger: "NE",
+          nigeria: "NG",
+          norway: "NO",
+          oman: "OM",
+          pakistan: "PK",
+          palestine: "PS",
+          panama: "PA",
+          papua_new_guinea: "PG",
+          paraguay: "PY",
+          peru: "PE",
+          philippines: "PH",
+          poland: "PL",
+          portugal: "PT",
+          qatar: "QA",
+          romania: "RO",
+          russia: "RU",
+          rwanda: "RW",
+          saudi_arabia: "SA",
+          senegal: "SN",
+          serbia: "RS",
+          sierra_leone: "SL",
+          singapore: "SG",
+          slovakia: "SK",
+          slovenia: "SI",
+          somalia: "SO",
+          south_africa: "ZA",
+          south_korea: "KR",
+          south_sudan: "SS",
+          spain: "ES",
+          sri_lanka: "LK",
+          sudan: "SD",
+          suriname: "SR",
+          sweden: "SE",
+          switzerland: "CH",
+          syria: "SY",
+          taiwan: "TW",
+          tajikistan: "TJ",
+          tanzania: "TZ",
+          thailand: "TH",
+          the_bahamas: "BS",
+          togo: "TG",
+          tunisia: "TN",
+          turkey: "TR",
+          turkmenistan: "TM",
+          uae: "AE",
+          uganda: "UG",
+          uk: "GB",
+          ukraine: "UA",
+          united_states: "US",
+          uruguay: "UY",
+          uzbekistan: "UZ",
+          venezuela: "VE",
+          vietnam: "VN",
+          worldwide: "WORLD",
+          yemen: "YE",
+          zambia: "ZM",
+          zimbabwe: "ZW"
+        };
+
+        function flagMarkup(code, label) {
+          if (code === "WORLD") return String.fromCodePoint(0x1f30d);
+          if (code === "KURDISTAN") return '<img src="/assets/flags/kurdistan.svg" width="40" height="30" alt="Kurdistan flag" loading="lazy">';
+          if (!code || code.length !== 2) return String.fromCodePoint(0x1f4cd);
+          var safeLabel = (label || code).replace(/"/g, "&quot;");
+          return '<img src="https://flagcdn.com/w40/' + code.toLowerCase() + '.png" width="40" height="30" alt="' + safeLabel + ' flag" loading="lazy">';
+        }
+
+        document.querySelectorAll("[data-region-key]").forEach(function(node) {
+          node.innerHTML = flagMarkup(regionCodes[node.getAttribute("data-region-key")], node.getAttribute("data-region-title"));
+        });
+
+        document.querySelectorAll("[data-count]").forEach(function(node) {
+          var value = Number(node.getAttribute("data-count"));
+          if (Number.isFinite(value)) {
+            node.textContent = value.toLocaleString();
+          }
+        });
+
+        var regionSearch = document.getElementById("region-search");
+        var regionStatus = document.querySelector("[data-region-search-status]");
+        var regionCards = Array.prototype.slice.call(document.querySelectorAll("[data-region-card]"));
+        if (regionSearch && regionCards.length) {
+          var updateRegionSearch = function() {
+            var query = regionSearch.value.trim().toLowerCase();
+            var visible = 0;
+
+            regionCards.forEach(function(card) {
+              var title = card.getAttribute("data-region-title") || "";
+              var match = !query || title.indexOf(query) !== -1;
+              card.parentElement.hidden = !match;
+              if (match) visible += 1;
+            });
+
+            if (regionStatus) {
+              regionStatus.textContent = query ? visible + " matching regions" : "";
+            }
+          };
+
+          regionSearch.addEventListener("input", updateRegionSearch);
+          updateRegionSearch();
+        }
+
         var hash = window.location.hash;
         if (hash) {
-          var id = hash.substring(1);
-          var row = document.getElementById(id);
+          var row = document.getElementById(hash.substring(1));
           if (row) {
-            row.style.fontWeight = 'bold';
-            row.style.backgroundColor = '#f8f8f8';
+            row.classList.add("is-highlighted");
+            row.scrollIntoView({ block: "center" });
           }
         }
       });
     </script>
-
-  <style type="text/css">
-  ul.share-buttons{
-    list-style: none;
-    padding: 0;
-  }
-
-  ul.share-buttons .sr-only {
-    position: absolute;
-    clip: rect(1px 1px 1px 1px);
-    clip: rect(1px, 1px, 1px, 1px);
-    padding: 0;
-    border: 0;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-  }
-
-  ul.share-buttons img{
-    width: 32px;
-  }
-  </style>
-  <script src="{{ '/assets/js/lazysizes.min.js' }}" async></script>
+    <script src="{{ '/assets/js/lazysizes.min.js' }}" async></script>
   </body>
 </html>
