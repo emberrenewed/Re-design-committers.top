@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="committers.top ranks active GitHub contributors by region and exports the data for websites, CSV reports, and badges.">
+  <title>committers.top</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07111d;
+      --panel: #0d1828;
+      --panel-strong: #111f34;
+      --text: #f5f7fb;
+      --muted: #a9b5c7;
+      --line: rgba(255, 255, 255, 0.12);
+      --cyan: #38bdf8;
+      --green: #65d46e;
+      --amber: #f4b544;
+      --coral: #ff6b5f;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 80% 10%, rgba(56, 189, 248, 0.12), transparent 30rem),
+        linear-gradient(180deg, #07111d 0%, #0b141f 42%, #111827 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(7, 17, 29, 0.82);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(1120px, calc(100% - 32px));
+      min-height: 64px;
+      margin: 0 auto;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      color: #06101b;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .button.primary {
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      color: #06101b;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.24);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 86vh;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      opacity: 0.6;
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(1.08) contrast(1.04);
+    }
+
+    .hero::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        linear-gradient(90deg, rgba(7, 17, 29, 0.96) 0%, rgba(7, 17, 29, 0.76) 42%, rgba(7, 17, 29, 0.24) 100%),
+        linear-gradient(180deg, rgba(7, 17, 29, 0.14), rgba(7, 17, 29, 0.92));
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      width: min(1120px, calc(100% - 32px));
+      min-height: 86vh;
+      margin: 0 auto;
+      align-items: center;
+      padding: 78px 0 96px;
+    }
+
+    .hero-content {
+      max-width: 720px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: #b8f7e2;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 34px;
+      height: 2px;
+      background: var(--green);
+      content: "";
+    }
+
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(44px, 8vw, 86px);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin: 24px 0 0;
+      color: #d9e4ef;
+      font-size: clamp(18px, 2.4vw, 22px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      width: min(1120px, calc(100% - 32px));
+      margin: -56px auto 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      min-height: 118px;
+      padding: 24px;
+      background: rgba(13, 24, 40, 0.96);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 88px 0;
+    }
+
+    section {
+      margin-top: 84px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 30px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .feature {
+      min-height: 190px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(13, 24, 40, 0.76);
+    }
+
+    .feature-icon {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 20px;
+      place-items: center;
+      border-radius: 8px;
+      color: #06101b;
+      font-weight: 900;
+    }
+
+    .feature:nth-child(1) .feature-icon { background: var(--cyan); }
+    .feature:nth-child(2) .feature-icon { background: var(--green); }
+    .feature:nth-child(3) .feature-icon { background: var(--amber); }
+
+    .feature h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .steps li {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      align-items: start;
+      min-height: 84px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(13, 24, 40, 0.76);
+    }
+
+    .steps b {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--green);
+    }
+
+    .steps h3 {
+      margin: 0 0 4px;
+      font-size: 18px;
+    }
+
+    .steps p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .terminal {
+      min-height: 100%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #050913;
+      box-shadow: var(--shadow);
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .dot:nth-child(2) {
+      background: var(--amber);
+    }
+
+    .dot:nth-child(3) {
+      background: var(--green);
+    }
+
+    pre {
+      margin: 0;
+      padding: 24px;
+      overflow-x: auto;
+      color: #d8f9e7;
+      font: 15px/1.7 "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #dbe7f4;
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 14px;
+    }
+
+    .cta {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(101, 212, 110, 0.16), rgba(56, 189, 248, 0.12)),
+        rgba(13, 24, 40, 0.86);
+    }
+
+    .cta h2 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    .cta p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 820px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .hero,
+      .hero-inner {
+        min-height: 760px;
+      }
+
+      .hero::after {
+        background:
+          linear-gradient(180deg, rgba(7, 17, 29, 0.94) 0%, rgba(7, 17, 29, 0.8) 54%, rgba(7, 17, 29, 0.96) 100%);
+      }
+
+      .metrics,
+      .feature-grid,
+      .workflow,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics {
+        margin-top: -32px;
+      }
+
+      main {
+        padding-top: 64px;
+      }
+
+      section {
+        margin-top: 64px;
+      }
+
+      .cta {
+        align-items: start;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="#top" aria-label="committers.top home">
+        <span class="brand-mark">ct</span>
+        <span>committers.top</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#quick-start">Quick start</a>
+        <a href="https://github.com/emberrenewed/Re-design-committers.top">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-media" aria-hidden="true">
+      <img src="./assets/readme-hero.svg" alt="">
+    </div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="eyebrow">GitHub contributor rankings</p>
+        <h1>committers.top</h1>
+        <p class="hero-copy">A Go-powered ranking pipeline for finding the most active GitHub contributors by country, region, or custom location.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#quick-start">Run the CLI</a>
+          <a class="button" href="https://github.com/emberrenewed/Re-design-committers.top">View source</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="metrics" aria-label="Project highlights">
+    <div class="metric">
+      <strong>Go 1.17+</strong>
+      <span>Small command line engine with CSV, YAML, and terminal output.</span>
+    </div>
+    <div class="metric">
+      <strong>GraphQL</strong>
+      <span>Uses GitHub profile, organization, and contribution data.</span>
+    </div>
+    <div class="metric">
+      <strong>Global</strong>
+      <span>Ships presets for countries, regions, and custom locations.</span>
+    </div>
+  </div>
+
+  <main>
+    <section id="features">
+      <div class="section-head">
+        <h2>Built for contributor discovery.</h2>
+        <p>Turn GitHub location search into ranked contributor lists that can be exported, published, and reused by badge workers.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="feature-icon">1</div>
+          <h3>Regional rankings</h3>
+          <p>Query bundled presets or pass your own location filters to discover active developers in a specific place.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">2</div>
+          <h3>Contribution intelligence</h3>
+          <p>Rank candidates by contribution activity and include profile metadata, organizations, and company signals.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">3</div>
+          <h3>Deployment data</h3>
+          <p>Export YAML for the public rankings site, CSV for analysis, or plain text for terminal workflows.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="section-head">
+        <h2>From GitHub search to publishable data.</h2>
+        <p>The CLI gathers a broad candidate set, ranks the results, and produces files ready for a website or report.</p>
+      </div>
+      <div class="workflow">
+        <ol class="steps">
+          <li>
+            <b>01</b>
+            <div>
+              <h3>Choose a region</h3>
+              <p>Use a preset like worldwide, iraq, or united states, or repeat custom location flags.</p>
+            </div>
+          </li>
+          <li>
+            <b>02</b>
+            <div>
+              <h3>Collect contributors</h3>
+              <p>The GitHub API returns profile, organization, follower, and contribution data.</p>
+            </div>
+          </li>
+          <li>
+            <b>03</b>
+            <div>
+              <h3>Export results</h3>
+              <p>Generate terminal, CSV, or YAML output for the next publishing step.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="terminal" id="quick-start">
+          <div class="terminal-bar" aria-hidden="true">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <pre><code># set a GitHub token with read:user and read:org
+export GITHUB_TOKEN="paste-your-token-here"
+
+# rank the top 50 worldwide contributors
+go run . --preset worldwide --amount 50 --consider 250
+
+# save a CSV report
+go run . --preset worldwide --amount 500 --output csv --file output.csv</code></pre>
+        </div>
+      </div>
+      <div class="tag-list" aria-label="Supported outputs">
+        <span class="tag">Plain output</span>
+        <span class="tag">CSV reports</span>
+        <span class="tag">YAML website data</span>
+        <span class="tag">Cloudflare badges</span>
+        <span class="tag">Docker support</span>
+      </div>
+    </section>
+
+    <section class="cta" aria-label="Project source">
+      <div>
+        <h2>Ready to run or extend.</h2>
+        <p>Clone the repository, add a GitHub token, and generate rankings for the locations that matter to your community.</p>
+      </div>
+      <a class="button primary" href="https://github.com/emberrenewed/Re-design-committers.top">Open repository</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>committers.top ranking pipeline</span>
+      <span>MIT licensed Go project</span>
+    </div>
+  </footer>
+</body>
+</html>
