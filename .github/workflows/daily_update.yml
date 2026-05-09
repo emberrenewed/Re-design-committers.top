@@ -4,6 +4,10 @@ on:
     - cron: '45 * * * *'
 
 name: daily update
+
+permissions:
+  contents: write
+
 jobs:
   daily_update:
     runs-on: ubuntu-24.04
